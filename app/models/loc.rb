@@ -26,6 +26,7 @@ class LOC < ApplicationRecord
       lha: dec_lha.to_f,
       lat: dec_lat.to_f,
       dec: dec_dec.to_f,
+      hc: hc,
       hc_deg: hc_deg,
       z: azimuth_angle,
       a: "#{intercept.round(1)} #{intercept_dir}",
@@ -35,10 +36,19 @@ class LOC < ApplicationRecord
 
   private
 
+  def rad(deg)
+    deg * Math::PI / 180
+  end
+
+  def deg(rad)
+    rad * 180 / Math::PI
+  end
+
   def hc
-    a = Math.cos(dec_lha) * Math.cos(dec_lat) * Math.cos(dec_dec)
-    b = Math.sin(dec_lat) * Math.sin(dec_dec)
-    Math.asin(a + b)
+    a = Math.cos(rad(dec_lha)) * Math.cos(rad(dec_lat)) * Math.cos(rad(dec_dec))
+    b = Math.sin(rad(dec_lat)) * Math.sin(rad(dec_dec))
+    c = a + b
+    deg(Math.asin(c)).to_d.round(5).to_f
   rescue Math::DomainError
     raise 'There was a problem calculating Hc. Check your sight data.'
   end
@@ -50,9 +60,9 @@ class LOC < ApplicationRecord
   end
 
   def z
-    a = Math.sin(dec_dec) - (Math.sin(dec_lat) * Math.sin(hc))
-    b = Math.cos(dec_lat) * Math.cos(hc)
-    Math.acos(a / b)
+    a = Math.sin(rad(dec_dec)) - (Math.sin(rad(dec_lat)) * Math.sin(rad(hc)))
+    b = Math.cos(rad(dec_lat)) * Math.cos(rad(hc))
+    deg(Math.acos(a / b))
   rescue Math::DomainError
     raise 'There was a problem calculating Z. Check your sight data.'
   end
