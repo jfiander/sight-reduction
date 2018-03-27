@@ -34,7 +34,7 @@ class LOC < ApplicationRecord
   end
 
   def azimuth_angle
-    azimuth_quadrant[0] + " #{z} " + azimuth_quadrant[1]
+    azimuth_quadrant[0] + " #{z.to_f.round(5)} " + azimuth_quadrant[1]
   end
 
   def azimuth
