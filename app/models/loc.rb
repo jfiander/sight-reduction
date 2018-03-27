@@ -26,7 +26,7 @@ class LOC < ApplicationRecord
       lha: dec_lha.to_f,
       lat: dec_lat.to_f,
       dec: dec_dec.to_f,
-      hc: hc.to_d.round(5).to_f,
+      hc_deg: hc_deg,
       z: azimuth_angle,
       a: "#{intercept.round(1)} #{intercept_dir}",
       zn: zn
@@ -41,6 +41,12 @@ class LOC < ApplicationRecord
     Math.asin(a + b)
   rescue Math::DomainError
     raise 'There was a problem calculating Hc. Check your sight data.'
+  end
+
+  def hc_deg
+    d = hc.to_i
+    m = ((hc - d) * 60).round(1)
+    "#{d} #{m}"
   end
 
   def z
