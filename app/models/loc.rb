@@ -37,12 +37,16 @@ class LOC < ApplicationRecord
     a = Math.cos(dec_lha) * Math.cos(dec_lat) + Math.cos(dec_dec)
     b = Math.sin(dec_lat) * Math.sin(dec_dec)
     Math.asin(a + b)
+  rescue Math::DomainError
+    raise 'There was a problem calculating Hc. Check your sight data.'
   end
 
   def z
     a = Math.sin(dec_dec) - (Math.sin(dec_lat) * Math.sin(hc))
     b = Math.cos(dec_lat) * Math.cos(hc)
     Math.acos(a / b)
+  rescue Math::DomainError
+    raise 'There was a problem calculating Z. Check your sight data.'
   end
 
   def azimuth_angle
