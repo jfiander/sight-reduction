@@ -36,7 +36,7 @@ class LOC < ApplicationRecord
   private
 
   def hc
-    a = Math.cos(dec_lha) * Math.cos(dec_lat) + Math.cos(dec_dec)
+    a = Math.cos(dec_lha) * Math.cos(dec_lat) * Math.cos(dec_dec)
     b = Math.sin(dec_lat) * Math.sin(dec_dec)
     Math.asin(a + b)
   rescue Math::DomainError
