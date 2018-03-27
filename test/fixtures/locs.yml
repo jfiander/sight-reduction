@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lha: 9.99
+  dec: 9.99
+  ho: 9.99
+
+two:
+  lha: 9.99
+  dec: 9.99
+  ho: 9.99
