@@ -17,7 +17,7 @@ class LOC < ApplicationRecord
   def plot
     {
       intercept: "#{intercept.round(1)} #{intercept_dir}",
-      azimuth: azimuth.round % 360
+      azimuth: zn
     }
   end
 
@@ -29,7 +29,7 @@ class LOC < ApplicationRecord
       hc: hc.to_d.round(5).to_f,
       z: azimuth_angle,
       a: "#{intercept.round(1)} #{intercept_dir}",
-      zn: azimuth.round % 360
+      zn: zn
     }
   end
 
@@ -47,6 +47,10 @@ class LOC < ApplicationRecord
     Math.acos(a / b)
   rescue Math::DomainError
     raise 'There was a problem calculating Z. Check your sight data.'
+  end
+
+  def zn
+    azimuth.round % 360
   end
 
   def azimuth_angle
