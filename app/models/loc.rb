@@ -16,7 +16,7 @@ class LOC < ApplicationRecord
 
   def plot
     {
-      intercept: "#{intercept.round(1)} #{intercept_dir}",
+      intercept: intercept,
       azimuth: zn
     }
   end
@@ -29,7 +29,7 @@ class LOC < ApplicationRecord
       hc: hc,
       hc_deg: hc_deg,
       z: azimuth_angle,
-      a: "#{intercept.round(1)} #{intercept_dir}",
+      a: intercept,
       zn: zn
     }
   end
@@ -102,10 +102,9 @@ class LOC < ApplicationRecord
   end
 
   def intercept
-    dec_ho - hc
-  end
+    a = (dec_ho - hc).round(1)
+    d = a.positive? ? 'T' : 'A'
 
-  def intercept_dir
-    intercept.positive? ? 'T' : 'A'
+    "#{a.abs} #{d}"
   end
 end
