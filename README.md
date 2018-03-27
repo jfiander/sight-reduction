@@ -6,14 +6,14 @@ This is a simple applicaiton for reducing celestial sights.
 
 ```ruby
 loc = LOC.create do |l|
-  l.lha = '354 1.3'
-  l.dec = '10 37.3 N'
-  l.ho = '15 42.5'
-  l.lat = '41 34.2 N'
-  l.lon = '71 21.1 W'
+  l.lha = '334 7.4'
+  l.dec = '16 41.3 S'
+  l.ho  = '36 53.4'
+  l.lat = '29 17.2 N'
+  l.lon = '35 16.2 W'
 end
 
-loc.plot # { intercept: "15.2 T", azimuth: 359 }
+loc.plot # { intercept: "0.8 A", azimuth: 212 }
 
-loc.sheet # { lha: 354.02167, lat: 41.57, dec: 10.62167, hc: 0.48727, z: "N 0.35001 W", a: "15.2 T", zn: 0 }
+loc.sheet # { lha: 334.12333, lat: 29.28667, dec: -16.68833, hc: 37.67679, hc_deg: "37 40.6", z: "N 148.11624 W", a: "0.8 A", zn: 212 }
 ```
