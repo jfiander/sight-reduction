@@ -21,6 +21,18 @@ class LOC < ApplicationRecord
     }
   end
 
+  def sheet
+    {
+      lha: dec_lha.to_f,
+      lat: dec_lat.to_f,
+      dec: dec_dec.to_f,
+      hc: hc.to_d.round(5).to_f,
+      z: azimuth_angle,
+      a: "#{intercept.round(1)} #{intercept_dir}",
+      zn: azimuth.round % 360
+    }
+  end
+
   def hc
     a = Math.cos(dec_lha) * Math.cos(dec_lat) + Math.cos(dec_dec)
     b = Math.sin(dec_lat) * Math.sin(dec_dec)
