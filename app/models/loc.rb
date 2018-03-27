@@ -33,6 +33,8 @@ class LOC < ApplicationRecord
     }
   end
 
+  private
+
   def hc
     a = Math.cos(dec_lha) * Math.cos(dec_lat) + Math.cos(dec_dec)
     b = Math.sin(dec_lat) * Math.sin(dec_dec)
@@ -63,8 +65,6 @@ class LOC < ApplicationRecord
     return (180 + z) if azimuth_quadrant == 'SW'
     return (180 - z) if azimuth_quadrant == 'SE'
   end
-
-  private
 
   def parse_coordinate(string)
     degrees, minutes, symbol = string.delete('°\'"').split(' ')
